@@ -5,6 +5,7 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:   # Manual trigger for Apply jobs
 
 env:
   TF_VERSION: "1.7.5"
@@ -85,12 +86,14 @@ jobs:
             -no-color
         working-directory: environments/dev
 
-  # ── Apply Dev (on main push) ──────────────────────────────────────
+  # ── Apply Dev (manual trigger only) ──────────────────────────────
+  # Triggered manually via: Actions → Terraform CI/CD → Run workflow
+  # Requires secrets: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DEV_DB_PASSWORD
   apply-dev:
     name: Apply Dev
     runs-on: ubuntu-latest
     needs: [validate-dev, validate-prod]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.event_name == 'workflow_dispatch'
     environment: dev
     steps:
       - uses: actions/checkout@v4
