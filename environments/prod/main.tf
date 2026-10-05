@@ -41,7 +41,7 @@ module "vpc" {
 
   project              = var.project
   environment          = local.environment
-  vpc_cidr             = "10.1.0.0/16"   # Different CIDR from dev
+  vpc_cidr             = "10.1.0.0/16" # Different CIDR from dev
   public_subnet_cidrs  = ["10.1.1.0/24", "10.1.2.0/24"]
   private_subnet_cidrs = ["10.1.10.0/24", "10.1.11.0/24"]
   availability_zones   = ["${var.aws_region}a", "${var.aws_region}b"]
@@ -55,12 +55,12 @@ module "ec2" {
   project           = var.project
   environment       = local.environment
   vpc_id            = module.vpc.vpc_id
-  subnet_ids        = module.vpc.private_subnet_ids  # Prod: private subnet
+  subnet_ids        = module.vpc.private_subnet_ids # Prod: private subnet
   ami_id            = var.ami_id
-  instance_type     = "t3.small"    # Prod: bigger instance
-  instance_count    = 2             # Prod: 2 instances for HA
+  instance_type     = "t3.small" # Prod: bigger instance
+  instance_count    = 2          # Prod: 2 instances for HA
   key_name          = var.key_name
-  allowed_ssh_cidrs = ["10.1.0.0/16"]  # Prod: only internal SSH
+  allowed_ssh_cidrs = ["10.1.0.0/16"] # Prod: only internal SSH
   root_volume_size  = 40
   common_tags       = local.common_tags
 }
@@ -74,12 +74,12 @@ module "rds" {
   vpc_id                = module.vpc.vpc_id
   subnet_ids            = module.vpc.private_subnet_ids
   ec2_security_group_id = module.ec2.security_group_id
-  instance_class        = "db.t3.small"  # Prod: bigger DB
+  instance_class        = "db.t3.small" # Prod: bigger DB
   allocated_storage     = 50
   db_name               = "appdb"
   db_username           = var.db_username
   db_password           = var.db_password
-  multi_az              = true           # Prod: Multi-AZ for HA
+  multi_az              = true # Prod: Multi-AZ for HA
   common_tags           = local.common_tags
 }
 

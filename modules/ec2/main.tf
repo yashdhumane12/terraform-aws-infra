@@ -94,7 +94,7 @@ resource "aws_instance" "app" {
   }))
 
   metadata_options {
-    http_tokens = "required"   # Enforce IMDSv2 for security
+    http_tokens = "required" # Enforce IMDSv2 for security
   }
 
   tags = merge(var.common_tags, {

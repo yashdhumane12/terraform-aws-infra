@@ -46,7 +46,7 @@ resource "aws_db_parameter_group" "main" {
 
   parameter {
     name  = "log_min_duration_statement"
-    value = "1000"   # Log queries slower than 1s
+    value = "1000" # Log queries slower than 1s
   }
 
   tags = var.common_tags
@@ -70,9 +70,9 @@ resource "aws_db_instance" "main" {
   vpc_security_group_ids = [aws_security_group.rds.id]
   parameter_group_name   = aws_db_parameter_group.main.name
 
-  multi_az               = var.multi_az
-  publicly_accessible    = false
-  skip_final_snapshot    = var.environment == "dev" ? true : false
+  multi_az                  = var.multi_az
+  publicly_accessible       = false
+  skip_final_snapshot       = var.environment == "dev" ? true : false
   final_snapshot_identifier = var.environment == "dev" ? null : "${var.project}-${var.environment}-final-snapshot"
 
   backup_retention_period = var.environment == "prod" ? 7 : 1

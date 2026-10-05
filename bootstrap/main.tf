@@ -65,4 +65,4 @@ resource "aws_dynamodb_table" "tfstate_lock" {
 }
 
 output "state_bucket" { value = aws_s3_bucket.tfstate.id }
-output "lock_table"   { value = aws_dynamodb_table.tfstate_lock.name }
+output "lock_table" { value = aws_dynamodb_table.tfstate_lock.name }

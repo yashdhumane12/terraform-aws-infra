@@ -58,7 +58,7 @@ module "ec2" {
   vpc_id         = module.vpc.vpc_id
   subnet_ids     = module.vpc.public_subnet_ids
   ami_id         = var.ami_id
-  instance_type  = "t3.micro"        # Dev: small instance
+  instance_type  = "t3.micro" # Dev: small instance
   instance_count = 1
   key_name       = var.key_name
   common_tags    = local.common_tags
@@ -78,7 +78,7 @@ module "rds" {
   db_name               = "appdb"
   db_username           = var.db_username
   db_password           = var.db_password
-  multi_az              = false       # Dev: no multi-AZ to save cost
+  multi_az              = false # Dev: no multi-AZ to save cost
   common_tags           = local.common_tags
 }
 
